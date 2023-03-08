@@ -114,9 +114,8 @@ def get_transport_notification():
                                   'Database=Stolarz_AGV_Mroczen;'
                                   'UID=sa;PWD=Stolarz123@;')
             cursor = conn.cursor()
-            if reason is None:
+            if reason is None or transport_new_state in ['Pending', 'Ongoing', 'Completed', 'Aborted']:
                 curs_text = f"UPDATE dbo.Przejazdy SET Przej_T_ONE_status = '{transport_new_state}', " \
-                            f"Przej_T_ONE_reason = '', " \
                             f"Przej_time_stamp = '{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S:000')}' " \
                             f"WHERE Przej_T_ONE_id = '{transport_id}'"
                 logging.info(f'None: {curs_text}')
